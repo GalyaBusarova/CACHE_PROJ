@@ -1,84 +1,84 @@
-# LFU, LRU и Идеальное кэширование
+# LFU, LRU and Optimal Caching
 
-Данный проект реализует три алгоритма кэширования:
-- **LFU (Least Frequently Used)** — вытесняет элемент с наименьшей частотой обращений.
-- **LRU (Least Recentle Used)** - вытесняет элемент, к которому долше всего не обращались
-- **Идеальное кэширование** — теоретически оптимальный алгоритм, который вытесняет элемент, который **не будет использоваться дольше всего в будущем** (требует знания всей последовательности запросов заранее).
+This project implements three cache replacement algorithms:
+- **LFU (Least Frequently Used)** — evicts the item with the lowest access frequency.
+- **LRU (Least Recentle Used)** -  evicts the item that has not been accessed for the longest time.
+- **Optimal Caching** — a theoretically optimal algorithm that evicts the item whose next access is farthest in the future. It requires knowledge of the entire request sequence in advance.
 
-Проект включает в себя реализацию всех алгоритмов, модульные тесты и систему бенчмаркинга.
+The project includes implementations of all three algorithms, unit tests, and a benchmarking framework.
 
 ---
 
-## 📁 Структура проекта
+## 📁 Project Structure
 ```bash
-├── hash.h # Реализация LFU-кэша 
-├── ideal_cache.h # Реализация идеального кэша и функции подсчёта попаданий 
-├── lru_cache.h # Реализация LRU-кэша для сравнения
-├── lfu.cpp # Главная программа
-├── main_benchmark.cpp # Программа для бенчмаркинга
-├── benchmark.cpp # Логика бенчмаркинга
-├── main_lru.cpp # Программа LRU
-├── trace_generator.py        # Генератор трасс на Python (Zipf-распределение)
-├── trace_generator.cpp       # Генератор трасс на C++ (альтернатива)
-├── tests.cpp # Модульные тесты для LFU и идеального кэширования 
-├── tests.h # Объявление структур и функций для тестов 
-├── Makefile # Сборка проекта 
-└── README.md # Данный файл
+├── hash.h # LFU cache implementation
+├── ideal_cache.h # Ideal cache implementation and hit counting functions
+├── lru_cache.h # LRU cache implementation for comparison
+├── lfu.cpp # Main program
+├── main_benchmark.cpp # Benchmarking program
+├── benchmark.cpp # Benchmarking logic
+├── main_lru.cpp # LRU program
+├── trace_generator.py        # Trace generator in Python (Zipf distribution)
+├── trace_generator.cpp       # Trace generator in C++ (alternative)
+├── tests.cpp # Unit tests for LFU and ideal caching
+├── tests.h # Declaration of structures and functions for tests
+├── Makefile # Project build
+└── README.md # This file
 ```
 
-## 🛠 Сборка и запуск
+## 🛠 Build and Run
 
-### Требования
-- Компилятор C++17 или выше (например, `g++`, `clang++`)
+### Requirements
+- C++17 compiler or higher (e.g., g++, clang++)
 - `make`
-- Python 3 c numpy для генератора трасс
+- Python 3 with numpy for the trace generator
 
-### Сборка
+### Build
 ```bash
 make
 ```
 
-Это соберет все программы: реализации, тесты и бенчмарк.
+This will build all programs: implementations, tests, and benchmark.
 
-### Запуск
+### Run
 
-1. Интерактивный режим
+1. Interactive mode
 ```bash
 make run
 ```
 
-Программа запросит на ввод: размер кэша, количество запросов, последовательность чисел(ключей)
+The program will prompt for: cache size, number of requests, sequence of numbers (keys)
 
-2. Запуск на готовом тестовом файле
-Поместите тестовый файл в корень проекта и выполните:
+2. Run on a prepared test file
+Place the test file in the project root and run:
 
 ```bash
 make run-file TEST=your_file.dat
 ```
 
-3. Запуск модульных тестов
+3. Run unit tests
 
 ```bash
 make tests
 ```
 
-4. Бенчмаркинг: LRU vs LFU
-Генерация тестовой трассы: 
+4. Benchmarking: LRU vs LFU
+Generate a test trace:
 ```bash
 make generate-trace
 ```
 
-Быстрый бенчмарк(только размер кэша = 1000):
+Quick benchmark (cache size = 1000 only):
 ```bash
 make quick-benchmark
 ```
 
-Полный бенчмарк
+Full benchmark
 ```bash
 make full-benchmark
 ```
 
-### Очистка
+### Cleanup
 ```bash
 make clean
 ```
